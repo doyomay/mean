@@ -15,10 +15,8 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function (req, res, next) {
-    var publi = new Post({
-        username : req.body.username,
-        body : req.body.body
-    });
+    var publi = new Post({ body: req.body.body});
+    publi.username = req.auth.username;
     publi.save(function (err, post) {
         if(err){ return next(err) }
         res.status(201).json(post);
