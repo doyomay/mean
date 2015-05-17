@@ -15,7 +15,7 @@
             <li><a href="/register">Register</a></li>
             <li><a href="/login">Login</a></li>
         </ul>
-        <p class="navbar-text navbar-right" data-ng-if="currentUser">Signed in as {{currentUser.username}}</p>
+        <p class="navbar-text navbar-right" data-ng-if="currentUser">Signed in as {{currentUser.username}} <a href="#" data-ng-click="logout()">logout </a> {{corruntUser.logout}} </p>
     </div>
 </nav>
 <div data-ng-view></div>

@@ -30,4 +30,11 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.get('/logout', function(req, res, next) {
+    req.auth = null;
+    res.status(201).json({
+        msg : 'logout exit!'
+    }).end();
+});
+
 module.exports = router;

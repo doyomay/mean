@@ -6,10 +6,10 @@ var router = require('express').Router();
 
 router.use(express.static(__dirname + '/../templates'));
 router.use(express.static(__dirname + '/../assets'));
-var routers = ['/','/register','/login'];
-router.get('*', function(req, res, next){
-    console.log('url => ' + req.url);
-    if(routers.indexOf( req.url)>= 0 ) {
+var routers = ['/', '/register', '/login'];
+router.get('*', function (req, res, next) {
+
+    if (routers.indexOf(req.url) >= 0) {
         var options = {
             root: 'layouts',
             dotfiles: 'deny',
@@ -18,23 +18,23 @@ router.get('*', function(req, res, next){
                 'x-sent': true
             }
         };
-        res.sendFile('app.html', options, function(err){
-            if(err){
+        res.sendFile('app.html', options, function (err) {
+            if (err) {
                 next(err);
             }
         });
-    }else {
+    } else {
         var options = {
             root: 'layouts',
             dotfiles: 'deny',
             headers: {
                 'x-timestamp': Date.now(),
                 'x-sent': true,
-                'status' : 404
+                'status': 404
             }
         };
-        res.sendFile('404.html', options, function(err){
-            if(err){
+        res.sendFile('404.html', options, function (err) {
+            if (err) {
                 next(err);
             }
         });

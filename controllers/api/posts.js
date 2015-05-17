@@ -16,11 +16,19 @@ router.get('/', function(req, res, next){
 
 router.post('/', function (req, res, next) {
     var publi = new Post({ body: req.body.body});
-    publi.username = req.auth.username;
-    publi.save(function (err, post) {
-        if(err){ return next(err) }
-        res.status(201).json(post);
-    });
+    console.log(req.auth);
+    if(req.auth != undefined || req.auth != null) {
+
+        publi.username = req.auth.username;
+        publi.save(function (err, post) {
+            if(err){ return next(err) }
+            res.status(201).json(post);
+        });
+    }else {
+        res.status(401).json({
+            msg : 'please login firts!'
+        });
+    }
 });
 
 module.exports = router;
