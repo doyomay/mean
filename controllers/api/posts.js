@@ -2,6 +2,7 @@
  * Created by Gerardo on 5/9/2015.
  */
 var Post = require('../../models/post'),
+    websockets = require('../../websockets'),
     router = require('express').Router();
 
 
@@ -16,14 +17,15 @@ router.get('/', function(req, res, next){
 
 router.post('/', function (req, res, next) {
     var publi = new Post({ body: req.body.body});
-    console.log(req.auth);
     if(req.auth != undefined || req.auth != null) {
 
         publi.username = req.auth.username;
         publi.save(function (err, post) {
             if(err){ return next(err) }
+            websockets.broadcast('new_post',post);
             res.status(201).json(post);
         });
+
     }else {
         res.status(401).json({
             msg : 'please login firts!'
