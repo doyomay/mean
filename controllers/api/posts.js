@@ -3,8 +3,8 @@
  */
 var Post = require('../../models/post'),
     websockets = require('../../websockets'),
+    pubsub = require('../../pubsub'),
     router = require('express').Router();
-
 
 router.get('/', function(req, res, next){
     Post.find()
@@ -22,8 +22,12 @@ router.post('/', function (req, res, next) {
         publi.username = req.auth.username;
         publi.save(function (err, post) {
             if(err){ return next(err) }
-            websockets.broadcast('new_post',post);
-            res.status(201).json(post);
+            pubsub.publish('new_post',post);
+            pubsub.subscribe('new_post', function(post){
+                websockets.broadcast('new_post',post);
+            });
+            /*websockets.broadcast('new_post',post);
+            res.status(201).json(post);*/
         });
 
     }else {
