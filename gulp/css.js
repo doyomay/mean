@@ -11,5 +11,5 @@ gulp.task('css', function () {
 });
 
 gulp.task('watch:css', function () {
-    gulp.watch('css/**/*.styl',['css']);
+    gulp.watch('css/*.styl',['css']);
 });
