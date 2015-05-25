@@ -11,13 +11,20 @@
 <nav class="navbar navbar-default">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li><a href="/">Posts</a></li>
-            <li><a href="/register">Register</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a class="posts" href="/">Posts</a></li>
         </ul>
-        <p class="navbar-text navbar-right" data-ng-if="currentUser">Signed in as {{currentUser.username}} <a href="#" data-ng-click="logout()">logout </a> {{corruntUser.logout}} </p>
+        <ul class="nav navbar-nav navbar-right" data-ng-if="!currentUser">
+            <li><a class="register" href="/register">Register</a></li>
+            <li><a class="login" href="/login">Login</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" data-ng-if="currentUser">
+            <li><a class="logout" href="#" data-ng-click="logout()">logout </a></li>
+            <li></li>
+        </ul>
+        <p data-ng-if="currentUser" class="navbar-text navbar-right"> Signed in as {{currentUser.username}}  </p>
     </div>
 </nav>
+
 <div data-ng-view></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>

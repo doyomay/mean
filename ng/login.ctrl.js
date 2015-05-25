@@ -6,8 +6,8 @@ angular.module('app')
         $scope.login = function(username, password) {
             UserSvc.login(username,password)
                 .then(function(response){
-                    console.log(response);
                     $scope.$emit('login', response.data);
+                    sessionStorage.setItem('username',response.data);
                 });
         };
     });

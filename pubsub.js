@@ -3,6 +3,9 @@
  */
 var redis = require('redis'),
     client = redis.createClient();
+client.on('error', function(err){
+    console.log(err);
+});
 
 exports.publish = function(topic, data) {
     client.publish(topic,JSON.stringify(data));

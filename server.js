@@ -2,10 +2,13 @@
  * Created by Gerardo on 5/9/2015.
  */
 var express = require('express'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    logger = require('morgan'),
+    websockets = require('./websockets');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(logger('dev'));
 
 //rutas api
 app.use(require('./auth'));
@@ -16,7 +19,10 @@ app.use('/api/users',require('./controllers/api/users'));
 
 app.use(require('./controllers/static'));
 
-var server = app.listen(3000, function() {
-    console.log('server en port 3000')
+var port = process.env.PORT || 3000;
+
+var server = app.listen(port, function() {
+    console.log('Server',process.pid, 'listening on', port)
 });
-require('./websockets').connect(server);
+
+websockets.connect(server);
